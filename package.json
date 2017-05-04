@@ -1,0 +1,43 @@
+{
+  "name": "ipfs-filexp",
+  "version": "0.0.0",
+  "description": "Web based file manager for use with IPFS.",
+  "main": "lib/components/index.js",
+  "scripts": {
+    "test": "karma start --single-run=true karma.conf.js"
+  },
+  "keywords": [
+    "ipfs",
+    "file",
+    "folder",
+    "manager",
+    "tree",
+    "ui"
+  ],
+  "author": "Protocol Labs, Inc.",
+  "license": "MIT",
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "is-binary": "^0.1.0",
+    "lodash-es": "^4.17.4",
+    "prop-types": "^15.5.8",
+    "react-html5video": "^2.1.0",
+    "react-syntax-highlighter": "^5.5.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "standard": "^10.0.2"
+  },
+  "peerDependencies": {
+    "font-awesome": "^4.7.0",
+    "react": "^15.5.4",
+    "react-bootstrap": "^0.31.0",
+    "react-redux": "^5.0.4",
+    "react-redux-toastr": "^6.2.4",
+    "react-router-redux": "^4.0.8",
+    "redux-saga": "^0.15.1"
+  },
+  "standard": {
+    "parser": "babel-eslint"
+  }
+}
