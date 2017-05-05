@@ -1,25 +1,23 @@
 import {put, call, select, fork, take, race} from 'redux-saga/effects'
 import {join} from 'path'
 
-import * as actions from '../../actions'
-import {api} from '../../services'
-import {delay} from '../../utils/promise'
-
-const {
-  files: filesActions,
-  pages
-} = actions
+import {files as actions} from '../actions'
+import {api} from '../services'
 
 export function * fetchFiles () {
-  yield put(filesActions.filesList.request())
+  yield put(actions.requests.list.request())
 
   try {
     const {files} = yield select()
     const res = yield call(api.files.list, files.root)
-    yield put(filesActions.filesList.success(res))
+    yield put(actions.requests.list.success(res))
   } catch (err) {
-    yield put(filesActions.filesList.failure(err.message))
+    yield put(actions.requests.list.failure(err.message))
   }
+}
+
+function delay (time) {
+  return new Promise((resolve) => setTimeout(resolve, time))
 }
 
 export function * watchFiles () {
@@ -29,7 +27,7 @@ export function * watchFiles () {
   while (!cancel) {
     ({cancel} = yield race({
       delay: call(delay, 10000),
-      cancel: take(pages.FILES.LEAVE)
+      cancel: take(actions.FILES.LEAVE)
     }))
 
     if (!cancel) {
@@ -37,28 +35,28 @@ export function * watchFiles () {
     }
   }
 
-  yield put(filesActions.files.cancel())
+  yield put(actions.cancel())
 }
 
 export function * watchFilesRoot () {
-  while (yield take(filesActions.FILES.SET_ROOT)) {
+  while (yield take(actions.FILES.SET_ROOT)) {
     yield fork(fetchFiles)
   }
 }
 
 export function * watchCreateDir () {
-  while (yield take(filesActions.FILES.CREATE_DIR)) {
+  while (yield take(actions.FILES.CREATE_DIR)) {
     try {
-      yield put(filesActions.filesMkdir.request())
+      yield put(actions.requests.mkdir.request())
       const {files} = yield select()
       const name = join(files.tmpDir.root, files.tmpDir.name)
       yield call(api.files.mkdir, name)
 
       yield fork(fetchFiles)
-      yield put(filesActions.filesMkdir.success())
-      yield put(filesActions.filesRmTmpDir())
+      yield put(actions.requests.mkdir.success())
+      yield put(files.rmTmpDir())
     } catch (err) {
-      yield put(filesActions.filesMkdir.failure(err.message))
+      yield put(actions.requests.mkdir.failure(err.message))
     }
   }
 }
@@ -66,22 +64,22 @@ export function * watchCreateDir () {
 export function * watchCreateFiles () {
   while (true) {
     try {
-      const {root, files} = yield take(filesActions.FILES.CREATE_FILES)
-      yield put(filesActions.createFiles.request())
+      const {root, files} = yield take(actions.FILES.CREATE_FILES)
+      yield put(actions.requests.createFiles.request())
       yield call(api.files.createFiles, root, files)
 
       yield fork(fetchFiles)
-      yield put(filesActions.createFiles.success())
+      yield put(actions.requests.createFiles.success())
     } catch (err) {
-      yield put(filesActions.createFiles.failure(err.message))
+      yield put(actions.requests.createFiles.failure(err.message))
     }
   }
 }
 
 export function * watchRmDir () {
-  while (yield take(filesActions.FILES.REMOVE_DIR)) {
+  while (yield take(actions.FILES.REMOVE_DIR)) {
     try {
-      yield put(filesActions.filesRmDir.request())
+      yield put(actions.requests.rmDir.request())
       const {files} = yield select()
 
       for (let file of files.selected) {
@@ -89,10 +87,10 @@ export function * watchRmDir () {
       }
 
       yield fork(fetchFiles)
-      yield put(filesActions.filesRmDir.success())
-      yield put(filesActions.filesDeselectAll())
+      yield put(actions.requests.rmDir.success())
+      yield put(actions.deselectAll())
     } catch (err) {
-      yield put(filesActions.filesRmDir.failure(err.message))
+      yield put(actions.requests.rmDir.failure(err.message))
     }
   }
 }

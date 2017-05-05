@@ -16,10 +16,15 @@ export const requests = {
 }
 
 export const PREVIEW = {
+  LOAD: 'PREVIEW.LOAD',
+  LEAVE: 'PREVIEW.LEAVE',
   STAT: 'PREVIEW.STAT',
   READ: 'PREVIEW.READ',
   CLEAR: 'PREVIEW.CLEAR'
 }
+
+export const load = () => action(PREVIEW.LOAD)
+export const leave = () => action(PREVIEW.LEAVE)
 
 export const stat = (name) => action(PREVIEW.STAT, {name})
 export const read = (name) => action(PREVIEW.READ, {name})

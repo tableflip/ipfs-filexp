@@ -2,10 +2,10 @@ import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import multiaddr from 'multiaddr'
 
-import {pages, router, preview} from '../actions'
-import Icon from '../views/icon'
+import {router, preview} from '../actions'
+import Icon from './Icon'
 import PreviewContent from './PreviewContent'
-import shouldPureComponentUpdate from '../utils/pure'
+// import shouldPureComponentUpdate from '../utils/pure'
 
 function getGatewayUrl (config) {
   if (!config.Addresses) {
@@ -45,7 +45,7 @@ class Preview extends Component {
     goBack: PropTypes.func.isRequired
   };
 
-  shouldComponentUpdate = shouldPureComponentUpdate
+  // shouldComponentUpdate = shouldPureComponentUpdate
 
   componentWillMount () {
     this.props.load()
@@ -97,8 +97,8 @@ function mapStateToProps (state, ownProps) {
 }
 
 export default connect(mapStateToProps, {
-  load: pages.preview.load,
-  leave: pages.preview.leave,
+  load: preview.load,
+  leave: preview.leave,
   read: preview.read,
   goBack: router.goBack
 })(Preview)

@@ -7,9 +7,9 @@ import {toastr} from 'react-redux-toastr'
 
 import {files, router} from '../actions'
 
-import Tree from './../components/files/tree'
-import ActionBar from './../components/files/action-bar'
-import Breadcrumbs from './../components/files/breadcrumbs'
+import Tree from './Tree'
+import ActionBar from './ActionBar'
+import Breadcrumbs from './Breadcrumbs'
 
 class Explorer extends Component {
   static propTypes = {
@@ -22,6 +22,8 @@ class Explorer extends Component {
     }),
     selected: PropTypes.array.isRequired,
     // actions
+    load: PropTypes.func.isRequired,
+    leave: PropTypes.func.isRequired,
     setRoot: PropTypes.func.isRequired,
     createTmpDir: PropTypes.func.isRequired,
     setTmpDirName: PropTypes.func.isRequired,
@@ -34,6 +36,14 @@ class Explorer extends Component {
     createFiles: PropTypes.func.isRequired,
     push: PropTypes.func.isRequired
   };
+
+  componentWillMount () {
+    this.props.load()
+  }
+
+  componentWillUnmount () {
+    this.props.leave()
+  }
 
   _onRowClick = (file, shiftKey) => {
     const {
@@ -162,20 +172,21 @@ class Explorer extends Component {
 
 function mapStateToProps (state) {
   const {files} = state
-
   return files
 }
 
 export default connect(mapStateToProps, {
-  setRoot: files.filesSetRoot,
-  createTmpDir: files.filesCreateTmpDir,
-  setTmpDirName: files.filesSetTmpDirName,
-  createDir: files.filesCreateDir,
-  removeDir: files.filesRemoveDir,
-  rmTmpDir: files.filesRmTmpDir,
-  select: files.filesSelect,
-  deselect: files.filesDeselect,
-  deselectAll: files.filesDeselectAll,
-  createFiles: files.filesCreateFiles,
+  load: files.load,
+  leave: files.leave,
+  setRoot: files.setRoot,
+  createTmpDir: files.createTmpDir,
+  setTmpDirName: files.setTmpDirName,
+  createDir: files.createDir,
+  removeDir: files.removeDir,
+  rmTmpDir: files.rmTmpDir,
+  select: files.select,
+  deselect: files.deselect,
+  deselectAll: files.deselectAll,
+  createFiles: files.createFiles,
   push: router.push
 })(Explorer)
