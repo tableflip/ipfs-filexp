@@ -1,7 +1,5 @@
 import {createStore, applyMiddleware} from 'redux'
 import createSagaMiddleware from 'redux-saga'
-import {hashHistory} from 'react-router'
-import {routerMiddlware} from 'react-router-redux'
 
 import rootReducer from './reducers'
 import rootSaga from './sagas'
@@ -11,10 +9,7 @@ export default function configureStore (initialState) {
   const store = createStore(
     rootReducer,
     initialState,
-    applyMiddleware(
-      routerMiddlware(hashHistory),
-      sagaMiddleware
-    )
+    applyMiddleware(sagaMiddleware)
   )
 
   sagaMiddleware.run(rootSaga)

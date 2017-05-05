@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import multiaddr from 'multiaddr'
 
-import {router, preview} from '../actions'
+// import {router, preview} from '../actions'
+import {preview} from '../actions'
 import Icon from './Icon'
 import PreviewContent from './PreviewContent'
 // import shouldPureComponentUpdate from '../utils/pure'
@@ -100,6 +101,6 @@ function mapStateToProps (state, ownProps) {
 export default connect(mapStateToProps, {
   load: preview.load,
   leave: preview.leave,
-  read: preview.read,
-  goBack: router.goBack
+  read: preview.read
+  // goBack: router.goBack
 })(Preview)

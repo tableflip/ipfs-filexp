@@ -6,7 +6,8 @@ import {join} from 'path'
 import {includes} from 'lodash-es'
 import {toastr} from 'react-redux-toastr'
 
-import {files, router} from '../actions'
+// import {files, router} from '../actions'
+import {files} from '../actions'
 
 import Tree from './Tree'
 import ActionBar from './ActionBar'
@@ -188,6 +189,6 @@ export default connect(mapStateToProps, {
   select: files.select,
   deselect: files.deselect,
   deselectAll: files.deselectAll,
-  createFiles: files.createFiles,
-  push: router.push
+  createFiles: files.createFiles
+  // push: router.push
 })(Explorer)

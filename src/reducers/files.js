@@ -9,7 +9,7 @@ const defaultState = {
 }
 
 export default function files (state = defaultState, action) {
-  if (includes(actions.FILES_LIST, action.type) &&
+  if (includes(actions.requests.FILES_LIST, action.type) &&
       action.response) {
     return {
       ...state,

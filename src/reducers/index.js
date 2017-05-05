@@ -1,4 +1,5 @@
+import config from './config'
 import files from './files'
 import preview from './preview'
 
-export {files, preview}
+export {config, files, preview}
