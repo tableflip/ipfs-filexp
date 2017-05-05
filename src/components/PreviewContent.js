@@ -1,18 +1,17 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import {findKey, includes} from 'lodash-es'
 import Highlight from 'react-syntax-highlighter'
 import isBinary from 'is-binary'
 import Video from 'react-html5video'
 import {toastr} from 'react-redux-toastr'
 
-import 'react-html5video/dist/styles.css'
+// import 'react-html5video/dist/styles.css'
 
 import languages from '../constants/languages'
-import shouldPureComponentUpdate from '../utils/pure'
+// import shouldPureComponentUpdate from '../utils/pure'
 
-const loading = (
-  <div className='preview loading'>Loading</div>
-)
+const Loading = () => <div className='preview loading'>Loading</div>
 
 function getExtension (name) {
   name = name.toLowerCase()
@@ -35,7 +34,7 @@ const renderers = {
   image (name, stats, gatewayUrl, read, content) {
     if (!content) {
       read(name)
-      return loading
+      return <Loading />
     }
 
     const ext = getExtension(name)
@@ -53,7 +52,7 @@ const renderers = {
       toastr.error('Video preview requires the gateway to be running. Please check your configuration.')
       return
     } else if (!gatewayUrl || !stats.Hash) {
-      return loading
+      return <Loading />
     }
 
     const src = `${gatewayUrl}/ipfs/${stats.Hash}`
@@ -79,7 +78,7 @@ const renderers = {
 
     if (!content) {
       read(name)
-      return loading
+      return <Loading />
     }
 
     if (isBinary(content.toString('utf8'))) {
@@ -130,7 +129,7 @@ export default class Preview extends Component {
     read: PropTypes.func.isRequired
   };
 
-  shouldComponentUpdate = shouldPureComponentUpdate
+  // shouldComponentUpdate = shouldPureComponentUpdate
 
   render () {
     return (

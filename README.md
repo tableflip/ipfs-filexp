@@ -9,20 +9,15 @@ The explorer is built in [React](https://facebook.github.io/react/), and require
 **main.js**
 
 ```js
-import React, {Component} from 'react'
+import React from 'react'
 import {render} from 'react-dom'
 import {Route} from 'react-router'
 import {syncHistoryWithStore} from 'react-router-redux'
 import configureStore from './configure-store'
 import {Explorer, Preview} from 'ipfs-filexp'
 
-class ExplorerPage extends Component {
-  render () { return <Explorer /> }
-}
-
-class PreviewPage extends Component {
-  render () { return <Preview /> }
-}
+const ExplorerPage = () => <Explorer />
+const PreviewPage = () => <Preview />
 
 const store = configureStore()
 const history = syncHistoryWithStore(hashHistory, store)
@@ -46,8 +41,11 @@ That's it! Although we need an appropriate `configureStore` function which will 
 ```js
 import {createStore, applyMiddleware, combineReducers} from 'redux'
 import createSagaMiddleware from 'redux-saga'
+import {fork} from 'redux-saga/effects'
+import {hashHistory} from 'react-router'
 import {routerMiddlware} from 'react-router-redux'
 import * as Filexp from 'ipfs-filexp'
+
 // BYO reducers and sagas
 import reducers from './reducers'
 import sagas from './sagas'
@@ -55,7 +53,14 @@ import sagas from './sagas'
 export default function configureStore (initialState) {
   const rootReducer = combineReducers({ ...reducers, ...Filexp.reducers })
   const sagaMiddleware = createSagaMiddleware()
-  const store = createStore(rootReducer, initialState, applyMiddleware(sagaMiddleware))
+  const store = createStore(
+    rootReducer,
+    initialState,
+    applyMiddleware(
+      routerMiddlware(hashHistory),
+      sagaMiddleware
+    )
+  )
 
   sagaMiddleware.run(function * () { yield [fork(sagas), fork(Filexp.sagas)] })
 

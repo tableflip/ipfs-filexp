@@ -1,7 +1,7 @@
 import {fork} from 'redux-saga/effects'
 import {takeLatest} from 'redux-saga'
 
-import {actions} from '../../actions'
+import {actions} from '../actions'
 
 import * as files from './files'
 import * as preview from './preview'

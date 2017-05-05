@@ -1,6 +1,6 @@
 import {call, put} from 'redux-saga/effects'
 
-import {api} from '../services'
+import api from '../services/api'
 import * as actions from '../actions'
 
 const {

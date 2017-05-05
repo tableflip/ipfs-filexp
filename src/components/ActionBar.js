@@ -1,7 +1,8 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import {isEmpty} from 'lodash-es'
 
-import Icon from '../../views/icon'
+import Icon from './Icon'
 
 export default class ActionBar extends Component {
   static propTypes = {

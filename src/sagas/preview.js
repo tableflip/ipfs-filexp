@@ -1,8 +1,8 @@
 import {put, call, select, fork, take} from 'redux-saga/effects'
 
-import {preview} from '../../actions'
-import {api} from '../../services'
-import {loadConfig} from '../config'
+import {preview} from '../actions'
+import api from '../services/api'
+import {loadConfig} from './config'
 
 export function * stat () {
   try {

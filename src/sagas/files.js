@@ -2,7 +2,7 @@ import {put, call, select, fork, take, race} from 'redux-saga/effects'
 import {join} from 'path'
 
 import {files as actions} from '../actions'
-import {api} from '../services'
+import api from '../services/api'
 
 export function * fetchFiles () {
   yield put(actions.requests.list.request())

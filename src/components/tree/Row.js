@@ -1,9 +1,10 @@
-import React, {PropTypes, Component} from 'react'
+import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import pretty from 'prettysize'
 import classnames from 'classnames'
 import {ContextMenuTrigger} from 'react-contextmenu'
 
-import Icon from '../../../views/icon'
+import Icon from '../Icon'
 
 function renderType (type) {
   if (type === 'directory') return <Icon glyph='folder' large />

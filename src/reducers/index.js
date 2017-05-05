@@ -1,2 +1,4 @@
-export files from './files'
-export preview from './preview'
+import files from './files'
+import preview from './preview'
+
+export {files, preview}
