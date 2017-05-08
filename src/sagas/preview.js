@@ -1,40 +1,40 @@
 import {put, call, select, fork, take} from 'redux-saga/effects'
 
-import {preview} from '../actions'
+import {preview as actions} from '../actions'
 import api from '../services/api'
 import {loadConfig} from './config'
 
 export function * stat () {
   try {
-    yield put(preview.requests.stat.request())
+    yield put(actions.requests.stat.request())
 
     const {routing} = yield select()
     const {name} = routing.locationBeforeTransitions.query
     const stats = yield call(api.files.stat, name)
 
-    yield put(preview.requests.stat.success({
+    yield put(actions.requests.stat.success({
       name,
       stats
     }))
   } catch (err) {
-    yield put(preview.requests.stat.failure(err.message))
+    yield put(actions.requests.stat.failure(err.message))
   }
 }
 
 export function * read (name) {
   try {
-    yield put(preview.requests.read.request())
+    yield put(actions.requests.read.request())
 
     const content = yield call(api.files.read, name)
 
-    yield put(preview.requests.read.success(content))
+    yield put(actions.requests.read.success(content))
   } catch (err) {
-    yield put(preview.requests.read.failure(err.message))
+    yield put(actions.requests.read.failure(err.message))
   }
 }
 
 export function * watchRead () {
-  const {name} = yield take(preview.PREVIEW.READ)
+  const {name} = yield take(actions.PREVIEW.READ)
 
   yield fork(read, name)
 }
@@ -46,5 +46,5 @@ export function * load () {
 }
 
 export function * leave () {
-  yield put(preview.clear())
+  yield put(actions.clear())
 }

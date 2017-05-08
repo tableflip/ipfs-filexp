@@ -16,15 +16,15 @@ export const requests = {
 }
 
 export const PREVIEW = {
-  LOAD: 'PREVIEW.LOAD',
-  LEAVE: 'PREVIEW.LEAVE',
+  MOUNT: 'PREVIEW.MOUNT',
+  UNMOUNT: 'PREVIEW.UNMOUNT',
   STAT: 'PREVIEW.STAT',
   READ: 'PREVIEW.READ',
   CLEAR: 'PREVIEW.CLEAR'
 }
 
-export const load = () => action(PREVIEW.LOAD)
-export const leave = () => action(PREVIEW.LEAVE)
+export const mount = () => action(PREVIEW.MOUNT)
+export const unmount = () => action(PREVIEW.UNMOUNT)
 
 export const stat = (name) => action(PREVIEW.STAT, {name})
 export const read = (name) => action(PREVIEW.READ, {name})

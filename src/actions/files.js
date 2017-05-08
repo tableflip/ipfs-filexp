@@ -28,8 +28,8 @@ export const requests = {
 }
 
 export const FILES = {
-  LOAD: 'FILES.LOAD',
-  LEAVE: 'FILES.LEAVE',
+  MOUNT: 'FILES.MOUNT',
+  UNMOUNT: 'FILES.UNMOUNT',
   CANCEL: 'FILES.CANCEL',
   SET_ROOT: 'FILES.SET_ROOT',
   CREATE_TMP_DIR: 'FILES.CREATE_TMP_DIR',
@@ -43,8 +43,8 @@ export const FILES = {
   CREATE_FILES: 'FILES.CREATE_FILES'
 }
 
-export const load = () => action(FILES.LOAD)
-export const leave = () => action(FILES.LEAVE)
+export const mount = () => action(FILES.MOUNT)
+export const unmount = () => action(FILES.UNMOUNT)
 export const cancel = () => action(FILES.CANCEL)
 
 export const setRoot = (root) => action(FILES.SET_ROOT, {root})

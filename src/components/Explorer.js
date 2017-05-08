@@ -5,6 +5,8 @@ import {connect} from 'react-redux'
 import {join} from 'path'
 import {includes} from 'lodash-es'
 import {toastr} from 'react-redux-toastr'
+import {DragDropContext} from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
 
 // import {files, router} from '../actions'
 import {files} from '../actions'
@@ -24,8 +26,8 @@ class Explorer extends Component {
     }),
     selected: PropTypes.array.isRequired,
     // actions
-    load: PropTypes.func.isRequired,
-    leave: PropTypes.func.isRequired,
+    mount: PropTypes.func.isRequired,
+    unmount: PropTypes.func.isRequired,
     setRoot: PropTypes.func.isRequired,
     createTmpDir: PropTypes.func.isRequired,
     setTmpDirName: PropTypes.func.isRequired,
@@ -40,11 +42,11 @@ class Explorer extends Component {
   };
 
   componentWillMount () {
-    this.props.load()
+    this.props.mount()
   }
 
   componentWillUnmount () {
-    this.props.leave()
+    this.props.unmount()
   }
 
   _onRowClick = (file, shiftKey) => {
@@ -177,9 +179,9 @@ function mapStateToProps (state) {
   return files
 }
 
-export default connect(mapStateToProps, {
-  load: files.load,
-  leave: files.leave,
+export default DragDropContext(HTML5Backend)(connect(mapStateToProps, {
+  mount: files.mount,
+  unmount: files.unmount,
   setRoot: files.setRoot,
   createTmpDir: files.createTmpDir,
   setTmpDirName: files.setTmpDirName,
@@ -191,4 +193,4 @@ export default connect(mapStateToProps, {
   deselectAll: files.deselectAll,
   createFiles: files.createFiles
   // push: router.push
-})(Explorer)
+})(Explorer))

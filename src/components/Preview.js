@@ -41,8 +41,8 @@ class Preview extends Component {
     }),
     config: PropTypes.object.isRequired,
     // actions
-    load: PropTypes.func.isRequired,
-    leave: PropTypes.func.isRequired,
+    mount: PropTypes.func.isRequired,
+    unmount: PropTypes.func.isRequired,
     read: PropTypes.func.isRequired,
     goBack: PropTypes.func.isRequired
   };
@@ -50,11 +50,11 @@ class Preview extends Component {
   // shouldComponentUpdate = shouldPureComponentUpdate
 
   componentWillMount () {
-    this.props.load()
+    this.props.mount()
   }
 
   componentWillUnmount () {
-    this.props.leave()
+    this.props.unmount()
   }
 
   _onClose = (event) => {
@@ -99,8 +99,8 @@ function mapStateToProps (state, ownProps) {
 }
 
 export default connect(mapStateToProps, {
-  load: preview.load,
-  leave: preview.leave,
+  mount: preview.mount,
+  unmount: preview.unmount,
   read: preview.read
   // goBack: router.goBack
 })(Preview)

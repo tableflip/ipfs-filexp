@@ -1,30 +1,22 @@
 import {fork} from 'redux-saga/effects'
 import {takeLatest} from 'redux-saga'
 
-import {actions} from '../actions'
-
-import * as files from './files'
-import * as preview from './preview'
-
-const loaders = {
-  files,
-  preview
-}
+import * as actions from '../actions'
 
 export default function * () {
-  yield Object.keys(loaders)
+  yield Object.keys(actions)
     .reduce((acc, name) => {
-      const loader = loaders[name]
+      const action = actions[name]
 
-      if (loader.load) {
+      if (action.mount) {
         acc.push(fork(function * () {
-          yield * takeLatest(actions[name.toUpperCase()].LOAD, loader.load)
+          yield * takeLatest(action[name.toUpperCase()].MOUNT, action.mount)
         }))
       }
 
-      if (loader.leave) {
+      if (action.unmount) {
         acc.push(fork(function * () {
-          yield * takeLatest(actions[name.toUpperCase()].LEAVE, loader.leave)
+          yield * takeLatest(action[name.toUpperCase()].UNMOUNT, action.unmount)
         }))
       }
 
