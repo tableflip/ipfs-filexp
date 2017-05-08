@@ -6,6 +6,14 @@ This is a web based file manager for use with IPFS.
 
 The explorer is built in [React](https://facebook.github.io/react/), and requires a [redux](http://redux.js.org/) store, with [saga](https://redux-saga.js.org/) middleware to be available in your app.
 
+Install these peer dependencies in your app:
+
+```sh
+npm i --save react react-dom react-bootstrap react-redux react-redux-toastr react-router-redux redux-saga
+```
+
+Add the file explorer to your app:
+
 **main.js**
 
 ```js
