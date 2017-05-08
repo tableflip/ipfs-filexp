@@ -1,11 +1,12 @@
 {
-  "name": "ipfs-filexp",
+  "name": "@tableflip/ipfs-filexp",
   "version": "0.0.0",
   "description": "Web based file manager for use with IPFS.",
   "main": "lib/index.js",
   "scripts": {
     "test": "karma start --single-run=true karma.conf.js",
-    "build": "babel src --out-dir lib"
+    "build": "babel src --out-dir lib",
+    "watch": "babel src --watch --out-dir lib"
   },
   "keywords": [
     "ipfs",

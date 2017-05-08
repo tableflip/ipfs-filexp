@@ -14,6 +14,8 @@ import {render} from 'react-dom'
 import {Route} from 'react-router'
 import {syncHistoryWithStore} from 'react-router-redux'
 import configureStore from './configure-store'
+
+// 1. GRAB THE Explorer AND Preview COMPONENT!
 import {Explorer, Preview} from 'ipfs-filexp'
 
 const ExplorerPage = () => <Explorer />
@@ -22,6 +24,7 @@ const PreviewPage = () => <Preview />
 const store = configureStore()
 const history = syncHistoryWithStore(hashHistory, store)
 
+// 2. WIRE INTO APP
 render(
   <Provider store={store}>
     <Router history={history}>
@@ -42,8 +45,6 @@ That's it! Although we need an appropriate `configureStore` function which will 
 import {createStore, applyMiddleware, combineReducers} from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import {fork} from 'redux-saga/effects'
-import {hashHistory} from 'react-router'
-import {routerMiddlware} from 'react-router-redux'
 import * as Filexp from 'ipfs-filexp'
 
 // BYO reducers and sagas
@@ -56,13 +57,15 @@ export default function configureStore (initialState) {
   const store = createStore(
     rootReducer,
     initialState,
-    applyMiddleware(
-      routerMiddlware(hashHistory),
-      sagaMiddleware
-    )
+    applyMiddleware(sagaMiddleware)
   )
 
-  sagaMiddleware.run(function * () { yield [fork(sagas), fork(Filexp.sagas)] })
+  sagaMiddleware.run(function * () {
+    yield [
+      fork(sagas),
+      fork(Filexp.sagas)
+    ]
+  })
 
   return store
 }
