@@ -12,7 +12,7 @@
   "author": "Alan Shaw <alan@tableflip.io> (https://tableflip.io)",
   "license": "MIT",
   "dependencies": {
-    "@tableflip/ipfs-filexp": "0.0.0",
+    "@tableflip/ipfs-filexp": "0.0.1",
     "react": "^15.5.4",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.5.4",
