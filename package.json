@@ -1,6 +1,6 @@
 {
   "name": "@tableflip/ipfs-filexp",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Web based file manager for use with IPFS.",
   "main": "lib/index.js",
   "scripts": {
