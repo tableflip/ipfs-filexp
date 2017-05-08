@@ -16,7 +16,7 @@ import {syncHistoryWithStore} from 'react-router-redux'
 import configureStore from './configure-store'
 
 // 1. GRAB THE Explorer AND Preview COMPONENT!
-import {Explorer, Preview} from 'ipfs-filexp'
+import {Explorer, Preview} from '@tableflip/ipfs-filexp'
 
 const ExplorerPage = () => <Explorer />
 const PreviewPage = () => <Preview />
@@ -45,7 +45,7 @@ That's it! Although we need an appropriate `configureStore` function which will 
 import {createStore, applyMiddleware, combineReducers} from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import {fork} from 'redux-saga/effects'
-import * as Filexp from 'ipfs-filexp'
+import * as Filexp from '@tableflip/ipfs-filexp'
 
 // BYO reducers and sagas
 import reducers from './reducers'
